@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-This project demonstrates automation testing of a web application hosted locally, using Selenium and the Page Object Model (POM) architecture. The goal is to streamline key workflows, improve reliability, and provide maintainable automation scripts for your local web-based application.
+This project demonstrates automation testing of a web application hosted locally, using Selenium and the Page Object Model (POM) architecture. The goal is to streamline key workflows, improve reliability, and provide maintainable automation scripts for local web-based application.
 
 ## Target/Goals
 
