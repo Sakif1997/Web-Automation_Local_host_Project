@@ -17,10 +17,9 @@ This project demonstrates automation testing of a web application hosted locally
 
 ## Scenario
 
-### Scenario 1: Signup, Log out, Log in
+### Scenario 1: Signup, Log out
 - Automate user registration using the signup page.
 - Verify successful signup and log out.
-- Log in with the newly created user credentials.
 
 ### Scenario 2: Board and List Management
 - Create a new board after logging in.
@@ -30,6 +29,27 @@ This project demonstrates automation testing of a web application hosted locally
 ### Scenario 3: Board Deletion and Log out
 - Delete the previously created board.
 - Log out to complete the workflow.
+---
+## 📋 Overview
+
+This project demonstrates complete automation of a loacl hosted web application using the Page Object Model (POM) approach. The automation covers real-device execution, multiple scenario flows, parallel testing, and detailed reporting.
+
+- **Web App Code Automation Video Overview(code base):**  
+  [Watch the app demo](https://drive.google.com/file/d/1LjbAz4XkuESfJC0FCVzJT9Bo6h39boOW/view?usp=drive_link)
+
+- **Signup, Log out Scenario automation run video**  
+  [View Scenario 1,2 test execution](https://drive.google.com/file/d/1h0Y_p7QoAsjCp1bTy6gqurK-vzz0_EbW/view?usp=drive_link)
+
+- **Login, Board add, list add, list delete, Board delete and logout automation run video**  
+  [See scenario 3 to 8 in action](https://drive.google.com/file/d/1IjiEj6iNC-wtEdZUiMx5sEGlL0L5rIG9/view?usp=drive_link)
+
+- **TestNG Parallel Test Execution:**  
+  [Parallel execution video](https://drive.google.com/file/d/1X0HFgh1Vv421VOepreXpOLQOtLpfNt2G/view?usp=drive_link)
+
+**Check Report:**  
+  [Live report link](https://localhost3000project.netlify.app/)  
+
+---
 
 ## Prerequisites
 
