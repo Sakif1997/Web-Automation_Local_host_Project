@@ -597,8 +597,17 @@ This combined report covers:
 6. Logout Operation  
 
 **Part 1**  
-![Board & List Operations - Part 1](https://drive.google.com/uc?export=view&id=1GE7qMRv3s4veuUP5rmjP-jMElkRwm-KA)
+![Board & List Operations - Part 1](https://drive.google.com/uc?export=view&id=1GE7qMRv3s4veuUP5rmjP-jMElkRwm-KA)  
 
 **Part 2**  
-![Board & List Operations - Part 2](https://drive.google.com/uc?export=view&id=13-kT7zzxq03M54o5KqkiOUt4JEfssKcH)
+![Board & List Operations - Part 2](https://drive.google.com/uc?export=view&id=13-kT7zzxq03M54o5KqkiOUt4JEfssKcH)  
+### 🗂️ Allure Report Features
+
+- **Step-by-step execution details** with screenshots for each step.
+- **Test status indicators:** Passed, Failed, Skipped.
+- **Error tracebacks and logs** for failed cases.
+- **Visual graphs** for test distribution and trends.
+- **Easy navigation** between scenarios and steps.
+
+For complete details and interactive test results, visit the [Allure report](https://localhost3000project.netlify.app/).
 
