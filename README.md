@@ -159,6 +159,35 @@ public class BrowserSetup {
 ```
 
 ## Page Object model
+Here’s the **package name → class name** route mapping for all the classes:
+
+---
+
+### **Browser Setup**
+
+* **Package:** `Browser`  
+  **Class:** `BrowserSetup`  
+
+---
+
+### **Utilities (Page Objects / Methods)**
+
+* **Package:** `Utilities`  
+  **Class:** `Methods`  
+  **Class:** `SignUpPage`  
+  **Class:** `LoginPage`  
+  **Class:** `DashbordPage`  
+
+---
+
+### **Test Cases**
+
+* **Package:** `TestCases`  
+  **Class:** `SignUp`  
+  **Class:** `UserLogin`  
+  **Class:** `DashbordOperation`  
+
+---
 
 ### Methods
 
@@ -333,4 +362,243 @@ public class SignUp extends BrowserSetup{
 	}
 }
 ```
+Test result image:  
+![Result SignUp](https://drive.google.com/uc?export=view&id=1CSIsYN3alPn_8WyPJh9zTdtuYscyILvb)  
+
+
 ---
+### Scenario Replication Classes
+
+### Targeted Scenario:  Existing User Login Procedure
+
+**PackageName:** Utilities
+**ClassName:** LoginPage
+**Overview of this class:**
+
+* The `LoginPage` class holds locators and actions for performing **existing user login** in the web application.
+* It extends the `Methods` class, reusing utility methods for clicking, typing, waits, and screenshots.
+* The login process clicks the login menu, enters credentials, submits the form, and verifies the dashboard is displayed.
+
+Here, all selectors (XPaths and element names) are gathered from the application’s UI inspection tools.
+
+```java
+package Utilities;
+
+import org.openqa.selenium.By;
+
+public class LoginPage extends Methods {
+	public By LoginButton = By.xpath("//div[@data-cy='login-menu']");
+	public By Email = By.name("email");
+	public By Password = By.name("password");
+	public By loginbutton = By.xpath("//button[normalize-space()='Log in']");
+	public By DashbordPage = By.xpath("//h1[normalize-space()='My Boards']");
+	
+	public void Userlogin(String email, String password) throws InterruptedException {
+		clickElement(LoginButton);
+		Thread.sleep(1000);
+		WaitElementVisible(Email);
+		FieldValue(Email, email);
+		FieldValue(Password, password);
+		Thread.sleep(2000);
+		takeScreenshot("login Credentials");
+		clickElement(loginbutton);
+		WaitElementVisible(DashbordPage);
+		Thread.sleep(1500);
+		takeScreenshot("Dashbord");
+	}
+}
+```
+
+### Test Run of Existing User Login Procedure
+---
+**PackageName:** TestCases
+**ClassName:** UserLogin
+**Overview of this TestCase class:**
+
+* The `loginUser` method navigates to the local app, then calls `Userlogin` from the `LoginPage` class.
+* It verifies that an existing user can log in with valid credentials and land on the dashboard.
+
+```java
+package TestCases;
+
+import org.testng.annotations.Test;
+
+import Browser.BrowserSetup;
+import Utilities.LoginPage;
+
+public class UserLogin extends BrowserSetup {
+	LoginPage logIN = new LoginPage();
+	
+	@Test(description = "Scenario 3: Verify Previous Users successfully loggedin")
+	public void loginUser() throws InterruptedException {
+		getDriver().get("http://localhost:3000/");
+		Thread.sleep(1500);
+		logIN.Userlogin("sakif4646@gmail.com", "sakif123");
+	}
+}
+``` 
+
+---
+### Scenario Replication Classes
+
+### Targeted Scenario: Board & List Management Workflow (Post-Login)
+
+**PackageName:** Utilities
+**ClassName:** DashbordPage
+**Overview of this class:**
+
+* The `DashbordPage` class stores locators and actions to **create a board**, **add lists**, **delete a list**, **delete a board**, and **log out**.
+* It extends the `Methods` class to reuse waits, clicks, typing, screenshots, and click-then-wait helpers.
+* Selectors (XPaths/CSS) are captured from the web app UI (e.g., DevTools); naming aligns with the app (note: code uses “Bord” in identifiers).
+
+```java
+package Utilities;
+
+import org.openqa.selenium.By;
+
+public class DashbordPage extends Methods{
+	public By NewBordicon = By.xpath("//h1[normalize-space()='Create new board']");
+	public By Bordtitlefield = By.className("new-board-input");
+	public By CreateBordbutton = By.xpath("//button[normalize-space()='Create board']");
+	public By BordDashbord = By.name("board-title");
+	public By Addlist_1_c = By.xpath("/html[1]/body[1]/div[1]/div[1]/div[1]/div[1]/div[3]/div[1]");//Add will be after space
+	public By ListInput1 = By.xpath("//input[@placeholder='Enter list title...']");
+	public By Addlist_button = By.xpath("//button[normalize-space()='Add list']");
+	
+	
+	//public By Addlist_2_c = By.xpath("//div[contains(normalize-space(), 'Add a list')]");//Add will be after space
+	public By ListInput2 = By.xpath("//input[@placeholder='Enter list title...']");
+	//public By Addlist_button2 = By.xpath("//button[normalize-space()='Add list']");
+	
+	public By list2Option_c = By.xpath("/html[1]/body[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[2]/div[1]/div[1]/button[1]/*[name()='svg'][1]");
+	public By deleteList = By.cssSelector("[data-cy='delete-list']");
+
+	
+	public By Bordoption_c = By.xpath("/html[1]/body[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[3]/button[1]/*[name()='svg'][1]");
+	public By deleteBoard = By.cssSelector("[data-cy='delete-board']");
+	
+	public By logout = By.xpath("//div[@data-cy='logged-user']");
+	
+	public void Dashbordoperation() throws InterruptedException{
+		clickWaitElement(NewBordicon);
+		FieldValue(Bordtitlefield, "Automated bord");
+		clickElement(CreateBordbutton);
+		Thread.sleep(3000);
+		WaitElementVisible(BordDashbord);
+		clickElement(Addlist_1_c);
+		FieldValue(ListInput1, "list-1");
+		takeScreenshot("Dashbord");
+		Thread.sleep(3500);
+		clickElement(Addlist_button);
+		FieldValue(ListInput2, "list-2");
+		clickElement(Addlist_button);
+		Thread.sleep(2000);
+
+		clickElement(list2Option_c);
+		Thread.sleep(3000);
+		takeScreenshot("list customize menu");
+		clickWaitElement(deleteList);
+		
+		clickElement(Bordoption_c);
+		Thread.sleep(2000);
+		takeScreenshot("Bord menu");
+		clickWaitElement(deleteBoard);
+		takeScreenshot("Final dashbord");
+		Thread.sleep(2000);
+		clickElement(logout);
+		Thread.sleep(1500);
+	}
+}
+```
+
+---
+
+### Test Run of Board & List Management Workflow
+
+**PackageName:** TestCases
+**ClassName:** DashbordOperation
+**Overview of this TestCase class:**
+
+* The `DashbordOperate` test first **logs in** using `UserLogin.loginUser()`, then executes `DashbordPage.Dashbordoperation()` to validate board creation, list creation, list deletion, board deletion, and logout—capturing screenshots for Allure along the way.
+
+```java
+package TestCases;
+
+import org.testng.annotations.Test;
+
+import Browser.BrowserSetup;
+import Utilities.DashbordPage;
+
+public class DashbordOperation extends BrowserSetup {
+	DashbordPage dbpage = new DashbordPage();
+	UserLogin log_in = new UserLogin();
+	//log_in.loginUser();
+	@Test(description = "Scenario 3: Verify Successful login\n"
+		    + "Scenario 4: Verify user can create a Bord\n"
+		    + "Scenario 5: Verify user can make list\n"
+		    + "Scenario 6: Verify user can delete list\n"
+		    + "Scenario 7: Verify user can delete bord\n"
+		    + "Scenario 8: Verify user can log out")
+	public void DashbordOperate() throws InterruptedException{
+		log_in.loginUser();
+		dbpage.Dashbordoperation();
+	}
+}
+```
+Test result image:  
+![Dashbord Operation result](https://drive.google.com/uc?export=view&id=1Rd_iksWccZ4iRMj6otwZ674aUyyV6oMW) 
+ 
+
+
+## Allure Report Creation
+
+To create an allure report, first set dependency in the pom.xml file.  
+```ruby
+        <dependency>
+				<groupId>io.qameta.allure</groupId>
+				<artifactId>allure-testng</artifactId>
+				<version>2.19.0</version>
+		</dependency>
+```
+* Create some methods for allure report (like allure ScreenShot) which is added already
+```ruby
+public void takeScreenshot(String name) {
+		Allure.addAttachment(name, new ByteArrayInputStream(((TakesScreenshot)getDriver()).getScreenshotAs(OutputType.BYTES)));
+	}
+```
+     
+* then run the testing.xml file  
+![Project Preview](https://drive.google.com/uc?export=view&id=134oM0oA8RurANJRF1kXkBZZiWY3iTJO0)  
+
+* then refresh the whole package and see a "allure-results" file created under Maven Dependencies  
+-after runing the testng.xml file and refresh the whole package allure reasult appear
+
+### Allure Graph
+The Allure Graph provides a visual summary of all executed test cases, showing passed, failed, and skipped scenarios for quick analysis.
+
+![Allure Graph](https://drive.google.com/uc?export=view&id=1qe6cmF24OxsqiJ_0v34eh5yYVYIevxO3)
+
+---
+
+### Test Case Report – Signup Scenario
+This report details the automated **Signup** process, including each step, validations, and screenshots for better traceability.
+
+![Signup Test Report](https://drive.google.com/uc?export=view&id=134YJV43K8X8rQPhwTkFTVpjJDpK-lfsw)
+
+---
+
+### Test Case Report – Login, Board, and List Operations
+This combined report covers:
+1. User Login  
+2. Board Creation  
+3. List Addition  
+4. List Deletion  
+5. Board Deletion  
+6. Logout Operation  
+
+**Part 1**  
+![Board & List Operations - Part 1](https://drive.google.com/uc?export=view&id=1GE7qMRv3s4veuUP5rmjP-jMElkRwm-KA)
+
+**Part 2**  
+![Board & List Operations - Part 2](https://drive.google.com/uc?export=view&id=13-kT7zzxq03M54o5KqkiOUt4JEfssKcH)
+
