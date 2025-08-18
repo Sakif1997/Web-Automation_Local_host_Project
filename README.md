@@ -106,7 +106,6 @@ http://localhost:3000/api
 
 ## 2) Environment Setup
 
-**What this does:**
 Defines variables for URLs and dynamic IDs used throughout the collection so requests are portable and easy to rerun.
 
 | Variable      | Example Value               | Notes                     |
@@ -125,7 +124,6 @@ Defines variables for URLs and dynamic IDs used throughout the collection so req
 
 ## 3) Create User
 
-**What this does:**
 Creates a new user. Stores `User_id` and `accessToken` in the environment for authenticated calls later.
 
 **Request**
@@ -187,7 +185,6 @@ pm.environment.set("accessToken", jsonData.accessToken);
 
 ## 4) Create Board
 
-**What this does:**
 Creates a board and saves its `id` to `board_id` for subsequent list operations and cleanup.
 
 **Request**
@@ -244,7 +241,6 @@ pm.environment.set("board_id", response.id);
 
 ### List-1
 
-**What this does:**
 Creates **list-1** under the created board and stores its ID in `list-1`.
 
 ```http
@@ -300,7 +296,6 @@ pm.environment.set("list-1", response.id);
 
 ### List-2
 
-**What this does:**
 Creates **list-2** under the same board and stores its ID in `list_2`. This is the one we’ll delete later.
 
 ```http
@@ -361,7 +356,6 @@ pm.environment.set("list_2", response.id);
 
 ## 6) Delete One List
 
-**What this does:**
 Deletes **list-2** (stored in `list_2`) to validate deletion behavior and prep for board deletion.
 
 **Request**
@@ -383,7 +377,6 @@ DELETE {{BaseUrl}}/lists/{{list_2}}
 
 ## 7) Delete Board
 
-**What this does:**
 Deletes the board using `board_id` (after list cleanup) to keep the environment idempotent.
 
 **Request**
@@ -413,7 +406,6 @@ pm.test("Board ID is Deleted", function () {
 
 ## 8) Delete User
 
-**What this does:**
 Deletes the user created in Step 3 using `User_id`. Requires `accessToken` as a Bearer token.
 
 **Request**
@@ -452,7 +444,6 @@ pm.test(`User_id:${pm.environment.get("User_id")}, User successfully deleted`, f
 
 ## 9) Postman Collection Run Results
 
-**What this shows:**
 End-to-end execution with all assertions green — confirming the flow and cleanup are correct.
 
 After running via **Postman Runner**:
