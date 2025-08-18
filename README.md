@@ -460,6 +460,16 @@ After running via **Postman Runner**:
 
 ---
 
+
+## 9️⃣ API Testing Code Overview
+
+A short demo video of the full Postman test flow (CRUD operations with automated tests and environment variables).
+
+🎥 [Watch the API Testing Demo](https://drive.google.com/file/d/1-TsdDpU3Jy-C1PZ3subn-V0Lo6sxYkjM/view?usp=drive_link)
+
+---
+
+
 # Final Notes
 
 * The flow covers **Create → Read (validate) → Delete** across **User**, **Board**, and **Lists**.
