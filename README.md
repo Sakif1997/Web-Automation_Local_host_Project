@@ -6,7 +6,7 @@ This README documents end-to-end API testing of a simple Boards/Lists service us
 
 ---
 
-## 1) Reflection & Summary
+## Reflection & Summary
 
 ### Thought Process
 
@@ -42,7 +42,7 @@ Designed as a **mini lifecycle**: **Create → Use → Delete (Cleanup)**, cover
 * Runner results confirm **all tests passed** ✅
 
 ---
-## 2️⃣ Source of APIs
+## Source of APIs
 
 Before setting up the Postman environment, I verified the backend APIs directly in the **browser Developer Tools (Network tab)**.
 
@@ -104,7 +104,7 @@ http://localhost:3000/api
 ---
 
 
-## 2) Environment Setup
+## Environment Setup
 
 Defines variables for URLs and dynamic IDs used throughout the collection so requests are portable and easy to rerun.
 
@@ -122,7 +122,7 @@ Defines variables for URLs and dynamic IDs used throughout the collection so req
 
 ---
 
-## 3) Create User
+## 1) Create User
 
 Creates a new user. Stores `User_id` and `accessToken` in the environment for authenticated calls later.
 
@@ -183,7 +183,7 @@ pm.environment.set("accessToken", jsonData.accessToken);
 
 ---
 
-## 4) Create Board
+## 2) Create Board
 
 Creates a board and saves its `id` to `board_id` for subsequent list operations and cleanup.
 
@@ -237,7 +237,7 @@ pm.environment.set("board_id", response.id);
 
 ---
 
-## 5) Add Two Lists
+## 3) Add Two Lists
 
 ### List-1
 
@@ -354,7 +354,7 @@ pm.environment.set("list_2", response.id);
 
 ---
 
-## 6) Delete One List
+## 4) Delete One List
 
 Deletes **list-2** (stored in `list_2`) to validate deletion behavior and prep for board deletion.
 
@@ -375,7 +375,7 @@ DELETE {{BaseUrl}}/lists/{{list_2}}
 
 ---
 
-## 7) Delete Board
+## 5)Delete Board
 
 Deletes the board using `board_id` (after list cleanup) to keep the environment idempotent.
 
@@ -404,7 +404,7 @@ pm.test("Board ID is Deleted", function () {
 
 ---
 
-## 8) Delete User
+## 6) Delete User
 
 Deletes the user created in Step 3 using `User_id`. Requires `accessToken` as a Bearer token.
 
@@ -442,7 +442,7 @@ pm.test(`User_id:${pm.environment.get("User_id")}, User successfully deleted`, f
 
 ---
 
-## 9) Postman Collection Run Results
+## Postman Collection Run Results
 
 End-to-end execution with all assertions green — confirming the flow and cleanup are correct.
 
